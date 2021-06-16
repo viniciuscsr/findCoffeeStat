@@ -1,0 +1,37 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Find Coffee Stat</title>
+    <meta name="description" content="">
+    <meta name="author" content="Vinny Rodrigues">
+
+</head>
+
+<body>
+    <h1>Find Coffee Stat</h1>
+    <form action="/" method="POST">
+        <label for="screenSize">Screen Size:</label>
+        <select name="screenSize" id="screenSize">
+            <option value="xs">Extra Small - Smartphone</option>
+            <option value="sm">Small - Tablet</option>
+            <option value="md">Medium - Laptop</option>
+            <option value="lg">Large - Desktop</option>
+        </select>
+        <br><br>
+        <label for="sortingParameter">Sorting Parameter:</label>
+        <select name="sortingParameter" id="sortingParameter">
+            <option value="nearest">Nearest</option>
+            <option value="farthermost">Farthermost</option>
+            <option value="highestRating">Highest Rating</option>
+            <option value="lowestRating">Lowest Rating</option>
+        </select>
+        <br><br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+
+</html>

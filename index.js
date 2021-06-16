@@ -1,41 +1,66 @@
+const express = require('express');
+const app = express();
 let { coffeeShops } = require('./data');
 
-let userLocation = { lat: 32165464, long: 354654654 };
+app.set('view engine', 'ejs');
+app.use(express.json());
 
-const x = 6;
+app.get('/', (req, res) => {
+  res.render('index');
+});
 
-const getCoffeeShops = () => {
-  const calculateDistance = (latitude1, longitude1, latitude2, longitude2) => {
-    return Math.floor(Math.random() * 100);
+app.post('/', (req, res) => {
+  console.log('here');
+
+  const { screenSize } = req.body;
+  const { sortingParameter } = req.body;
+
+  const x = 6;
+
+  const getCoffeeShops = () => {
+    const calculateDistance = (
+      latitude1,
+      longitude1,
+      latitude2,
+      longitude2
+    ) => {
+      // returning a random number for testing purposes
+      return Math.floor(Math.random() * 100);
+    };
+
+    for (let i = 0; i < coffeeShops.length; i++) {
+      let distance = calculateDistance();
+      // add distance to object
+      coffeeShops[i].distance = distance;
+    }
+
+    // sort array by nearest distance
+    let sortingParameter = 'rating';
+    coffeeShops.sort((a, b) => {
+      if (sortingParameter == 'distance') {
+        return a.distance - b.distance;
+      } else {
+        return a.rating - b.rating;
+      }
+    });
+
+    // slice array to be the size of X
+    coffeeShops = coffeeShops.slice(0, x);
+
+    return coffeeShops;
   };
 
-  for (let i = 0; i < coffeeShops.length; i++) {
-    // call calculateDistance
-    let storeLat = coffeeShops[i].location.lat;
-    let storeLong = coffeeShops[i].location.long;
-    let distance = calculateDistance(
-      storeLat,
-      storeLong,
-      userLocation.lat,
-      userLocation.long
-    );
-    // add distance to object
-    coffeeShops[i].distance = distance;
-  }
+  getCoffeeShops();
 
-  // sort array by nearest distance
-  coffeeShops.sort((a, b) => {
-    return b.sortingParameter - a.sortingParameter;
-  });
+  console.log(coffeeShops);
 
-  // slice array to be the size of X
-  coffeeShops = coffeeShops.slice(0, x);
+  res.render('results', { coffeeShops });
+});
 
-  return coffeeShops;
-};
+app.get('/results', (req, res) => {
+  res.render('results');
+});
 
-getCoffeeShops();
-
-console.log(coffeeShops);
-
-return;
+app.listen(5000, () => {
+  console.log('SERVER IS RUNNING ON PORT 5000');
+});

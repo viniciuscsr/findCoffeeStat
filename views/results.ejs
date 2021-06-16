@@ -1,0 +1,36 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Find Coffee Stat</title>
+    <meta name="description" content="">
+    <meta name="author" content="Vinny Rodrigues">
+
+</head>
+
+<body>
+    <h1>Results</h1>
+
+
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Distance</th>
+            <th>Rating</th>
+        </tr>
+        <% coffeeShops.forEach(function(coffeeShops){ %>
+        <tr>
+            <td><%= coffeeShops.name %></td>
+            <td><%= coffeeShops.distance %></td>
+            <td><%= coffeeShops.rating %></td>
+        </tr>
+        <% }) %>
+    </table>
+
+
+</body>
+
+</html>
